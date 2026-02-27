@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-02-27T17:34:36.127116+08:00",
-  "total_titles_processed": 1491,
+  "generated_at": "2026-02-27T18:32:30.278170+08:00",
+  "total_titles_processed": 1582,
   "failed_sources": [],
   "trends": [
     {
       "keyword_group": "伊朗",
-      "match_count": 47,
+      "match_count": 53,
       "titles": [
         {
           "title": "白宫官员希望以色列先打击伊朗",
@@ -39,8 +39,8 @@
             5
           ],
           "is_new": false,
-          "appearance_count": 10,
-          "time_info": "[09时15分 ~ 17时34分]"
+          "appearance_count": 11,
+          "time_info": "[09时15分 ~ 18时32分]"
         },
         {
           "title": "中方正密切关注伊朗局势发展",
@@ -86,6 +86,21 @@
           "time_info": "[00时49分 ~ 15时42分]"
         },
         {
+          "title": "伊朗外交部发言人：本轮伊美谈判非常深入",
+          "url": "https://m.thepaper.cn/newsDetail_forward_32661028",
+          "source": "澎湃新闻",
+          "ranks": [
+            20,
+            19,
+            18,
+            16,
+            17
+          ],
+          "is_new": false,
+          "appearance_count": 7,
+          "time_info": "[14时43分 ~ 18时32分]"
+        },
+        {
           "title": "库什纳与美国特使Witkoff对2月26日早间与伊朗的磋商情况感到失望。（Axios）",
           "url": "https://wallstreetcn.com/livenews/3059722",
           "source": "华尔街见闻-快讯",
@@ -120,20 +135,6 @@
           "is_new": false,
           "appearance_count": 1,
           "time_info": "03时40分"
-        },
-        {
-          "title": "伊朗外交部发言人：本轮伊美谈判非常深入",
-          "url": "https://m.thepaper.cn/newsDetail_forward_32661028",
-          "source": "澎湃新闻",
-          "ranks": [
-            20,
-            19,
-            18,
-            16
-          ],
-          "is_new": false,
-          "appearance_count": 6,
-          "time_info": "[14时43分 ~ 17时34分]"
         },
         {
           "title": "据福克斯新闻：美国众议员Fallon表示，如果伊朗政权不停止铀浓缩及对恐怖主义的国家支持，所有选项都在考虑之中。",
@@ -461,6 +462,28 @@
           "time_info": "[02时41分 ~ 02时42分]"
         },
         {
+          "title": "伊朗前总统Ayatollah Khatami表示，伊朗政权不会接受暂停铀浓缩活动。（更正：非伊朗最高领袖哈梅内伊）",
+          "url": "https://flash.jin10.com/detail/20260227181323772800",
+          "source": "金十数据",
+          "ranks": [
+            7
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "18时32分"
+        },
+        {
+          "title": "加拿大再次要求其公民立即撤离伊朗",
+          "url": "https://wallstreetcn.com/livenews/3060216",
+          "source": "华尔街见闻-快讯",
+          "ranks": [
+            8
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "18时32分"
+        },
+        {
           "title": "据半岛电视台：伊朗外交部发言人在接受伊朗伊斯兰共和国通讯社（IRNA）采访时称，美伊最新一轮谈判刚刚结束，但未透露更多细节。",
           "url": "https://flash.jin10.com/detail/20260227030145670800",
           "source": "金十数据",
@@ -494,6 +517,28 @@
           "time_info": "03时40分"
         },
         {
+          "title": "美驻以大使警告使团：美袭击伊朗迫在眉睫，今天就离开以色列",
+          "url": "https://flash.jin10.com/detail/20260227181043243800",
+          "source": "金十数据",
+          "ranks": [
+            10
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "18时32分"
+        },
+        {
+          "title": "加拿大再次要求其公民立即撤离伊朗",
+          "url": "https://flash.jin10.com/detail/20260227181037975800",
+          "source": "金十数据",
+          "ranks": [
+            11
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "18时32分"
+        },
+        {
           "title": "据i24NEWS：熟悉日内瓦美伊核谈判的消息人士称，美国和伊朗之间的分歧仍然很大，形势不容乐观。",
           "url": "https://flash.jin10.com/detail/20260227024209626800",
           "source": "金十数据",
@@ -503,6 +548,28 @@
           "is_new": false,
           "appearance_count": 1,
           "time_info": "03时40分"
+        },
+        {
+          "title": "伊朗军方称将对美国侵略行为予以“毁灭性”回应",
+          "url": "https://wallstreetcn.com/livenews/3060200",
+          "source": "华尔街见闻-快讯",
+          "ranks": [
+            17
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "18时32分"
+        },
+        {
+          "title": "市场消息：伊朗方面表示，谈判的成功与否取决于对方的诚意和务实精神。",
+          "url": "https://flash.jin10.com/detail/20260227180012487800",
+          "source": "金十数据",
+          "ranks": [
+            18
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "18时32分"
         },
         {
           "title": "伊朗威胁美国",
@@ -563,7 +630,7 @@
     },
     {
       "keyword_group": "特朗普",
-      "match_count": 34,
+      "match_count": 35,
       "titles": [
         {
           "title": "特朗普和泽连斯基通话30分钟，谈及俄乌冲突结束时间",
@@ -618,8 +685,19 @@
             13
           ],
           "is_new": false,
-          "appearance_count": 10,
-          "time_info": "[09时15分 ~ 17时34分]"
+          "appearance_count": 11,
+          "time_info": "[09时15分 ~ 18时32分]"
+        },
+        {
+          "title": "史无前例！联合国宣布特朗普夫人将主持安理会会议",
+          "url": "https://news.ifeng.com/c/8r5F4LVejaT",
+          "source": "凤凰网",
+          "ranks": [
+            7
+          ],
+          "is_new": false,
+          "appearance_count": 6,
+          "time_info": "[15时41分 ~ 18时32分]"
         },
         {
           "title": "白宫：特朗普愿在无前提条件下与金正恩对话",
@@ -698,17 +776,6 @@
           "time_info": "12时07分"
         },
         {
-          "title": "史无前例！联合国宣布特朗普夫人将主持安理会会议",
-          "url": "https://news.ifeng.com/c/8r5F4LVejaT",
-          "source": "凤凰网",
-          "ranks": [
-            7
-          ],
-          "is_new": false,
-          "appearance_count": 5,
-          "time_info": "[15时41分 ~ 17时34分]"
-        },
-        {
           "title": "美国总统特朗普：负责审理这座将成为世界上最美丽宴会厅项目的法官，刚刚驳回并彻底否决了试图阻止其建设的努力。这座宴会厅预计未来还将用于总统就职典礼及大型国事访问活动，目前建设进度提前且低于预算。",
           "url": "https://flash.jin10.com/detail/20260227022534308800",
           "source": "金十数据",
@@ -719,6 +786,17 @@
           "is_new": false,
           "appearance_count": 3,
           "time_info": "[02时41分 ~ 03时40分]"
+        },
+        {
+          "title": "金十数据整理：特朗普过去24小时都忙了什么？（2026-02-27）",
+          "url": "https://flash.jin10.com/detail/20260227181757598800",
+          "source": "金十数据",
+          "ranks": [
+            4
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "18时32分"
         },
         {
           "title": "美国参议院少数党领袖舒默：在特朗普任内，制造业岗位减少了10万个。",
@@ -774,11 +852,12 @@
           "source": "今日头条",
           "ranks": [
             17,
-            10
+            10,
+            9
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[16时33分 ~ 17时34分]"
+          "appearance_count": 4,
+          "time_info": "[16时33分 ~ 18时32分]"
         },
         {
           "title": "美国参议院民主党成员Warren发函货币监理署（OCC）、联邦存款保险公司（FDID）、以及EREBOR Bank。 Warren向亚马逊询问，总统特朗普的关税是否造成（该公司）涨价。",
@@ -813,6 +892,17 @@
           "is_new": false,
           "appearance_count": 2,
           "time_info": "[02时41分 ~ 02时42分]"
+        },
+        {
+          "title": "爱泼斯坦案风波延烧，希拉里一句话把矛头指向特朗普",
+          "url": "https://news.ifeng.com/c/8r5SIs2UIPN",
+          "source": "凤凰网",
+          "ranks": [
+            9
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[17时34分 ~ 18时32分]"
         },
         {
           "title": "特朗普2026国会演讲全解析",
@@ -890,17 +980,6 @@
           "is_new": false,
           "appearance_count": 1,
           "time_info": "00时49分"
-        },
-        {
-          "title": "爱泼斯坦案风波延烧，希拉里一句话把矛头指向特朗普",
-          "url": "https://news.ifeng.com/c/8r5SIs2UIPN",
-          "source": "凤凰网",
-          "ranks": [
-            9
-          ],
-          "is_new": true,
-          "appearance_count": 1,
-          "time_info": "17时34分"
         },
         {
           "title": "美国众议院监督委员会主席Comer：在爱泼斯坦问题上，我们对克林顿夫妇有疑问，将适时对外披露相关信息。 总统特朗普的商务部长卢特尼克可能也会被传唤出席听证会。",
@@ -1105,7 +1184,7 @@
           "ranks": [
             12
           ],
-          "is_new": true,
+          "is_new": false,
           "appearance_count": 1,
           "time_info": "17时34分"
         },
@@ -1347,11 +1426,12 @@
             20,
             5,
             26,
-            13
+            13,
+            15
           ],
           "is_new": false,
-          "appearance_count": 8,
-          "time_info": "[13时46分 ~ 17时34分]"
+          "appearance_count": 9,
+          "time_info": "[13时46分 ~ 18时32分]"
         },
         {
           "title": "OpenAI：将与加拿大执法机构建立直接联系渠道，承诺与加拿大政府和专家合作，继续强化我们的强化执法转介标准。",
