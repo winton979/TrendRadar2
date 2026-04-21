@@ -1,0 +1,1944 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>热点新闻分析</title>
+        <style>
+            * { box-sizing: border-box; }
+            body { 
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+                margin: 0; 
+                padding: 16px; 
+                background: #fafafa;
+                color: #333;
+                line-height: 1.5;
+            }
+
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                background: white;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+            }
+
+            .header {
+                background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+                color: white;
+                padding: 32px 24px;
+                text-align: center;
+            }
+
+            .header-title {
+                font-size: 22px;
+                font-weight: 700;
+                margin: 0 0 20px 0;
+            }
+
+            .header-info {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                font-size: 14px;
+                opacity: 0.95;
+            }
+
+            .info-item {
+                text-align: center;
+            }
+
+            .info-label {
+                display: block;
+                font-size: 12px;
+                opacity: 0.8;
+                margin-bottom: 4px;
+            }
+
+            .info-value {
+                font-weight: 600;
+                font-size: 16px;
+            }
+
+            .content {
+                padding: 24px;
+            }
+
+            .word-group {
+                margin-bottom: 40px;
+            }
+
+            .word-group:first-child {
+                margin-top: 0;
+            }
+
+            .word-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 20px;
+                padding-bottom: 8px;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .word-info {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .word-name {
+                font-size: 17px;
+                font-weight: 600;
+                color: #1a1a1a;
+            }
+
+            .word-count {
+                color: #666;
+                font-size: 13px;
+                font-weight: 500;
+            }
+
+            .word-count.hot { color: #dc2626; font-weight: 600; }
+            .word-count.warm { color: #ea580c; font-weight: 600; }
+
+            .word-index {
+                color: #999;
+                font-size: 12px;
+            }
+
+            .news-item {
+                margin-bottom: 20px;
+                padding: 16px 0;
+                border-bottom: 1px solid #f5f5f5;
+                position: relative;
+                display: flex;
+                gap: 12px;
+                align-items: center;
+            }
+
+            .news-item:last-child {
+                border-bottom: none;
+            }
+
+            .news-item.new::after {
+                content: "NEW";
+                position: absolute;
+                top: 12px;
+                right: 0;
+                background: #fbbf24;
+                color: #92400e;
+                font-size: 9px;
+                font-weight: 700;
+                padding: 3px 6px;
+                border-radius: 4px;
+                letter-spacing: 0.5px;
+            }
+
+            .news-number {
+                color: #999;
+                font-size: 13px;
+                font-weight: 600;
+                min-width: 20px;
+                text-align: center;
+                flex-shrink: 0;
+                background: #f8f9fa;
+                border-radius: 50%;
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                align-self: flex-start;
+                margin-top: 8px;
+            }
+
+            .news-content {
+                flex: 1;
+                min-width: 0;
+                padding-right: 40px;
+            }
+
+            .news-item.new .news-content {
+                padding-right: 50px;
+            }
+
+            .news-header {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 8px;
+                flex-wrap: wrap;
+            }
+
+            .source-name {
+                color: #666;
+                font-size: 12px;
+                font-weight: 500;
+            }
+
+            .rank-num {
+                color: #fff;
+                background: #6b7280;
+                font-size: 10px;
+                font-weight: 700;
+                padding: 2px 6px;
+                border-radius: 10px;
+                min-width: 18px;
+                text-align: center;
+            }
+
+            .rank-num.top { background: #dc2626; }
+            .rank-num.high { background: #ea580c; }
+
+            .time-info {
+                color: #999;
+                font-size: 11px;
+            }
+
+            .count-info {
+                color: #059669;
+                font-size: 11px;
+                font-weight: 500;
+            }
+
+            .news-title {
+                font-size: 15px;
+                line-height: 1.4;
+                color: #1a1a1a;
+                margin: 0;
+            }
+
+            .news-link {
+                color: #2563eb;
+                text-decoration: none;
+            }
+
+            .news-link:hover {
+                text-decoration: underline;
+            }
+
+            .news-link:visited {
+                color: #7c3aed;
+            }
+
+            .new-section {
+                margin-top: 40px;
+                padding-top: 24px;
+                border-top: 2px solid #f0f0f0;
+            }
+
+            .new-section-title {
+                color: #1a1a1a;
+                font-size: 16px;
+                font-weight: 600;
+                margin: 0 0 20px 0;
+            }
+
+            .new-source-group {
+                margin-bottom: 24px;
+            }
+
+            .new-source-title {
+                color: #666;
+                font-size: 13px;
+                font-weight: 500;
+                margin: 0 0 12px 0;
+                padding-bottom: 6px;
+                border-bottom: 1px solid #f5f5f5;
+            }
+
+            .new-item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 8px 0;
+                border-bottom: 1px solid #f9f9f9;
+            }
+
+            .new-item:last-child {
+                border-bottom: none;
+            }
+
+            .new-item-number {
+                color: #999;
+                font-size: 12px;
+                font-weight: 600;
+                min-width: 18px;
+                text-align: center;
+                flex-shrink: 0;
+                background: #f8f9fa;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .new-item-rank {
+                color: #fff;
+                background: #6b7280;
+                font-size: 10px;
+                font-weight: 700;
+                padding: 3px 6px;
+                border-radius: 8px;
+                min-width: 20px;
+                text-align: center;
+                flex-shrink: 0;
+            }
+
+            .new-item-rank.top { background: #dc2626; }
+            .new-item-rank.high { background: #ea580c; }
+
+            .new-item-content {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .new-item-title {
+                font-size: 14px;
+                line-height: 1.4;
+                color: #1a1a1a;
+                margin: 0;
+            }
+
+            .error-section {
+                background: #fef2f2;
+                border: 1px solid #fecaca;
+                border-radius: 8px;
+                padding: 16px;
+                margin-bottom: 24px;
+            }
+
+            .error-title {
+                color: #dc2626;
+                font-size: 14px;
+                font-weight: 600;
+                margin: 0 0 8px 0;
+            }
+
+            .error-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .error-item {
+                color: #991b1b;
+                font-size: 13px;
+                padding: 2px 0;
+                font-family: 'SF Mono', Consolas, monospace;
+            }
+
+            @media (max-width: 480px) {
+                body { padding: 12px; }
+                .header { padding: 24px 20px; }
+                .content { padding: 20px; }
+                .header-info { grid-template-columns: 1fr; gap: 12px; }
+                .news-header { gap: 6px; }
+                .news-content { padding-right: 45px; }
+                .news-item { gap: 8px; }
+                .new-item { gap: 8px; }
+                .news-number { width: 20px; height: 20px; font-size: 12px; }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="header-title">热点新闻分析</div>
+                <div class="header-info">
+                    <div class="info-item">
+                        <span class="info-label">报告类型</span>
+                        <span class="info-value">实时分析</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">新闻总数</span>
+                        <span class="info-value">909 条</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">热点新闻</span>
+                        <span class="info-value">94 条</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">生成时间</span>
+                        <span class="info-value">04-21 21:04</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name">特朗普</div>
+                            <div class="word-count hot">52 条</div>
+                        </div>
+                        <div class="word-index">1/7</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">联合早报</span><span class="rank-num top">1</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.zaochenbao.com/news/politics/202604/2169923.html" target="_blank" class="news-link">美官员：特朗普频“抢风头”在社媒发文或损害谈判进程</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">2</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num top">1</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091864" target="_blank" class="news-link">特朗普批评最高法院允许退还关税</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">3</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num top">1</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421204820144800" target="_blank" class="news-link">美国总统特朗普：如果我们现在离开，伊朗需要20年才能重建。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">4</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 最热</span><span class="rank-num top">2</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/articles/3770427" target="_blank" class="news-link">特朗普称21日美伊谈判、如未达成协议“几无可能”延长停火，伊朗最高领袖重申三大立场</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">5</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">腾讯新闻 综合早报</span><span class="rank-num top">3</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://view.inews.qq.com/a/20260420A08LT400" target="_blank" class="news-link">特朗普：停火协议到期，炸弹将会爆炸，不清楚伊朗会不会到场</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">6</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">财联社 电报</span><span class="rank-num top">3</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://api3.cls.cn/share/article/2351176?os=web&amp;sv=8.4.6&amp;app=CailianpressWeb" target="_blank" class="news-link">财联社4月21日电，美国总统特朗普批评最高法院的关税裁决。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">7</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">凤凰网</span><span class="rank-num high">4</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://news.ifeng.com/c/8sVY7G7Z8bE" target="_blank" class="news-link">特朗普一顿迷惑操作搞懵美媒，美官员：只会添乱</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">8</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num high">4</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091860" target="_blank" class="news-link">特朗普：我一直赞成提高利率以对抗通货膨胀</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">9</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num high">4</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421204527480800" target="_blank" class="news-link">美国总统特朗普：如果新任美联储主席不降息，我将感到失望。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">10</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">财联社 电报</span><span class="rank-num high">4</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://api3.cls.cn/share/article/2351174?os=web&amp;sv=8.4.6&amp;app=CailianpressWeb" target="_blank" class="news-link">特朗普：赞成提高利率以对抗通货膨胀 但美国应该始终拥有全球最低利率</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">11</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">财联社热门</span><span class="rank-num ">6</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.cls.cn/detail/2350491" target="_blank" class="news-link">事关煤、气、油、电！特朗普动用“战时权力”</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">12</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num ">6</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091858" target="_blank" class="news-link">特朗普赞扬蒂姆·库克和黄仁勋。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">13</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">靠谱新闻</span><span class="rank-num ">7</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.dw.com/zh/美伊谈判陷罗生门　德黑兰否认与特朗普对话/a-76485565" target="_blank" class="news-link">美伊谈判陷罗生门　德黑兰否认与特朗普对话</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">14</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num ">7</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091857" target="_blank" class="news-link">特朗普谈Anthropic：不想让他们干预军事事务。
+
+在白宫与Anthropic进行了良好的会谈。
+
+Anthropic的人智商很高，我觉得我们能相处融洽。
+
+有可能达成协议。
+
+用像SAM ALTMAN这样的人取代了ANTHROPIC。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">15</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">凤凰网</span><span class="rank-num ">8</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://news.ifeng.com/c/8sUsyyCLV6x" target="_blank" class="news-link">特朗普：伊朗将进行谈判，希望双方能够达成“公平协议”</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">16</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num ">8</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091856" target="_blank" class="news-link">特朗普赞扬其他国家从美国获取石油。
+
+特朗普指出股市上涨。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">17</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">8</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421204330821800" target="_blank" class="news-link">美国总统特朗普：必须查明美联储大楼成本超支的原因。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">18</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">凤凰网</span><span class="rank-num ">9</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://news.ifeng.com/c/8sVQzCFVrqc" target="_blank" class="news-link">凤凰女记者：巴外长不断给伊朗做工作，特朗普态度成关键</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">19</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">9</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421204319247800" target="_blank" class="news-link">美国总统特朗普：预计美联储大楼完工时可能耗资超过40亿美元。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">20</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 最热</span><span class="rank-num ">10</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/articles/3770498" target="_blank" class="news-link">5月1日——特朗普“任性打仗”的关键时限</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">21</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">靠谱新闻</span><span class="rank-num ">10</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.zaobao.com.sg/news/world/story20260324-8781142" target="_blank" class="news-link">特朗普在盟友和波斯湾国家告诫后急转弯</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">22</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num ">10</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091852" target="_blank" class="news-link">特朗普：“完全”赢得了伊朗战争。
+
+如果我们现在离开伊朗，重建需要20年。
+
+想就伊朗问题达成一项好的协议，不能操之过急。
+
+不想被那些“叛国者”催促行事。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">23</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">10</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421204253837800" target="_blank" class="news-link">美国总统特朗普暗示鲍威尔在美联储建设成本问题上存在不当行为。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">24</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">财联社 电报</span><span class="rank-num ">10</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://api3.cls.cn/share/article/2351165?os=web&amp;sv=8.4.6&amp;app=CailianpressWeb" target="_blank" class="news-link">财联社4月21日电，特朗普称，在白宫与ANTHROPIC进行了良好的会谈，可能会与其达成协议。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">25</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num ">11</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091851" target="_blank" class="news-link">尽管对市场和石油造成影响，特朗普仍为在伊朗采取的行动辩护。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">26</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">11</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421204232112800" target="_blank" class="news-link">美国总统特朗普：美联储主席提名人沃什对美联储大楼翻修感到不满。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">27</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">靠谱新闻</span><span class="rank-num ">12</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.sbs.com.au/language/chinese/zh-hans/podcast-episode/australian-economic-insights-trump-delays-threat-to-iran/mmrm2ux2d" target="_blank" class="news-link">特朗普称推迟打击伊朗能源设施 澳洲会否重现燃油配给？</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">28</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">12</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421204206307800" target="_blank" class="news-link">特朗普表示不想延长与伊朗的停火协议</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">29</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">财联社 电报</span><span class="rank-num ">12</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://api3.cls.cn/share/article/2351160?os=web&amp;sv=8.4.6&amp;app=CailianpressWeb" target="_blank" class="news-link">财联社4月21日电，美国总统特朗普赞扬其他国家从美国购买石油。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">30</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num ">13</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091848" target="_blank" class="news-link">特朗普：我认为美联储大楼翻修完成后可能要花费超过40亿美元。
+
+必须查明美联储大楼翻修成本超支的原因。
+
+（特朗普被问及新任美联储主席是否应该立即降息）如果新任美联储主席不降息，会感到失望。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">31</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">13</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421204202798800" target="_blank" class="news-link">美国总统特朗普在采访中被问及美国司法部是否可能终止对美联储主席鲍威尔的调查。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">32</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num ">14</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091846" target="_blank" class="news-link">特朗普为针对鲍威尔的调查辩护，批评美联储的建设成本。
+
+特朗普暗示鲍威尔在美联储建设成本问题上存在不当行为。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">33</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">14</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421204050334800" target="_blank" class="news-link">技术刘Pro：突发双重利空压制国际现货金银，特朗普言论能否逆转行情？</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">34</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">15</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421204017760800" target="_blank" class="news-link">美国总统特朗普：（关于美联储调查）我们必须了解建设情况。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">35</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">财联社 电报</span><span class="rank-num ">15</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://api3.cls.cn/share/article/2351155?os=web&amp;sv=8.4.6&amp;app=CailianpressWeb" target="_blank" class="news-link">财联社4月21日电，美国总统特朗普表示，如果新任美联储主席不降息，会感到失望。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">36</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num ">16</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091843" target="_blank" class="news-link">特朗普谈再次延长停火：我不想那么做。
+
+伊朗可以通过协议重回正轨。
+
+伊朗似乎“嗜血成性”。
+
+伊朗必须运用理性和常识。
+
+伊朗可以把自身变成一个正当的国家。
+
+伊朗可能已经进行了一些补给。
+
+打击基础设施可在军事上损害伊朗。
+
+预计将对伊朗进行轰炸，我们已准备就绪。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">37</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">16</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421203925707800" target="_blank" class="news-link">美国总统特朗普：我预计伊朗会遭到轰炸，美军已做好进入伊朗的准备。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">38</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num ">17</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091840" target="_blank" class="news-link">特朗普谈伊朗谈判：我认为我们最终会达成一项很棒的协议。
+
+伊朗别无选择，只能派人参加谈判。
+
+我们在与伊朗的谈判中处于非常有利的地位。
+
+封锁取得了巨大成功。
+
+美国完全控制了霍尔木兹海峡。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">39</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">参考消息</span><span class="rank-num ">18</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://ckxxapp.ckxx.net/pages/2026/04/21/e527e5e5f2d44b46bc1cbcf8c82a8cd6.html" target="_blank" class="news-link">特朗普否认被以色列拖入战争</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">40</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">18</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421203824320800" target="_blank" class="news-link">美国总统特朗普：我们的姿态是准备轰炸伊朗，我们已做好准备。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">41</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">靠谱新闻</span><span class="rank-num ">19</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="http://china.hani.co.kr/arti/international/16659.html" target="_blank" class="news-link">特朗普：与伊朗几乎在所有争议点上达成共识……若未来5天进展顺利，冲突将告终结</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">42</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">财联社 电报</span><span class="rank-num ">20</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://api3.cls.cn/share/article/2351150?os=web&amp;sv=8.4.6&amp;app=CailianpressWeb" target="_blank" class="news-link">特朗普：必须查明美联储大楼翻修成本超支的原因</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">43</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 最新</span><span class="rank-num ">21</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/articles/3770498" target="_blank" class="news-link">5月1日——特朗普“任性打仗”的关键时限</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">44</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">21</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421203802366800" target="_blank" class="news-link">美国总统特朗普：我们现在的设备比几周前多得多。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">45</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">22</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421203756162800" target="_blank" class="news-link">美国总统特朗普：伊朗试图转移其导弹。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">46</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">23</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421203742847800" target="_blank" class="news-link">美国总统特朗普：对基础设施的打击可能会对伊朗造成军事伤害。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">47</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">25</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421203729153800" target="_blank" class="news-link">美国总统特朗普：伊朗可能已经补充了一些（武器）库存。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">48</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">靠谱新闻</span><span class="rank-num ">26</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://cn.nytimes.com/world/20260324/heres-the-latest/" target="_blank" class="news-link">谈还是继续打？特朗普与伊朗说法不一</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">49</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">26</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421203711159800" target="_blank" class="news-link">美国总统特朗普：伊朗似乎“嗜血成性”。伊朗必须理性、讲常识。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">50</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">27</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421203647377800" target="_blank" class="news-link">美国总统特朗普：伊朗可以使自己成为一个合法国家。</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">51</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">联合早报</span><span class="rank-num ">28</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.zaochenbao.com/news/politics/202604/2169889.html" target="_blank" class="news-link">特朗普：从伊朗获取铀将是“漫长艰难”过程</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">52</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">金十数据</span><span class="rank-num ">28</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://flash.jin10.com/detail/20260421203643869800" target="_blank" class="news-link">美国总统特朗普：伊朗刚获准赴巴基斯坦参加会谈。</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name">伊朗</div>
+                            <div class="word-count hot">26 条</div>
+                        </div>
+                        <div class="word-index">2/7</div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">凤凰网</span><span class="rank-num top">1</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://news.ifeng.com/loc/timeline/event/8r727OWpK5W" target="_blank" class="news-link">伊朗战争丨霍尔木兹海峡博弈，给中国带来哪些启示？</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">2</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">贴吧</span><span class="rank-num top">1</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28353546&amp;amp;topic_name=%E4%BC%8A%E6%9C%97%E5%B0%86%E6%81%A2%E5%A4%8D%E5%9B%BD%E5%86%85%E8%88%AA%E7%8F%AD%E8%BF%90%E8%90%A5" target="_blank" class="news-link">伊朗将恢复国内航班运营</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">3</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">法布财经 头条</span><span class="rank-num top">1</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.fastbull.com/cn/news-detail/4373133_1" target="_blank" class="news-link">伊朗强硬派掌权，谈判窗口进一步收窄</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">4</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">凤凰网</span><span class="rank-num top">3</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://news.ifeng.com/c/8sUi4SYlv7W" target="_blank" class="news-link">伊朗最高领袖重申三项基本立场</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">5</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">联合早报</span><span class="rank-num top">3</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.zaochenbao.com/news/politics/202604/2169921.html" target="_blank" class="news-link">伊朗战争重创德国景气 投资者信心跌至三年多新低</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">6</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 最热</span><span class="rank-num high">4</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/articles/3770465" target="_blank" class="news-link">万斯将赴巴基斯坦推进新一轮美伊谈判，伊朗再反转：没派代表团前往</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">7</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">卫星通讯社</span><span class="rank-num ">6</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://sputniknews.cn/20260421/1070889253.html" target="_blank" class="news-link">伊朗拟定一份新的目标清单以防与美国的冲突重启 </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">8</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">腾讯新闻 综合早报</span><span class="rank-num ">6</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://view.inews.qq.com/a/20260420A074BP00" target="_blank" class="news-link">穆杰塔巴毁容且双腿受重伤？伊朗回应</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">9</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">今日头条</span><span class="rank-num ">11</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.toutiao.com/trending/7630298529822736426/" target="_blank" class="news-link">美军集结三航母 伊朗能扛住吗</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">10</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">卫星通讯社</span><span class="rank-num ">12</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://sputniknews.cn/20260421/1070888449.html" target="_blank" class="news-link">爱沙尼亚防长：因与伊朗冲突，美国已暂停向爱沙尼亚交付价值数千万欧元的炮弹 </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">11</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">参考消息</span><span class="rank-num ">13</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://ckxxapp.ckxx.net/pages/2026/04/21/ad04f8cfeb704ad4ac253410e401e253.html" target="_blank" class="news-link">俄媒：伊朗战争加速世界格局向多极化转变</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">12</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">卫星通讯社</span><span class="rank-num ">13</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://sputniknews.cn/20260421/1070888206.html" target="_blank" class="news-link">伊朗军方宣布在美国海上封锁的背景下协助油轮进入伊朗水域 </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">13</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">抖音</span><span class="rank-num ">16</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.douyin.com/hot/2473160" target="_blank" class="news-link">伊朗男足备战世界杯</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">14</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">知乎</span><span class="rank-num ">16</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.zhihu.com/question/2029682687414203990" target="_blank" class="news-link">美以袭击伊朗进入第 53 天，当前局势如何？还有哪些信息值得关注？</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">15</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">卫星通讯社</span><span class="rank-num ">19</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://sputniknews.cn/20260421/1070887324.html" target="_blank" class="news-link">伊朗外长：坚持要求美方释放被扣船员 </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">16</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">卫星通讯社</span><span class="rank-num ">20</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://sputniknews.cn/20260421/1070887114.html" target="_blank" class="news-link">伊媒：伊朗代表团尚未启程赴巴与美谈判 </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">17</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 最新</span><span class="rank-num ">20</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/articles/3770497" target="_blank" class="news-link">伊朗战争推高欧洲机票成本：长途航班每名乘客多付超100美元</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">18</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">参考消息</span><span class="rank-num ">22</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://ckxxapp.ckxx.net/pages/2026/04/21/58a1763dda6b44b7b35c111c8fbf2f6c.html" target="_blank" class="news-link">俄罗斯外长同伊朗外长通电话</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">19</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">靠谱新闻</span><span class="rank-num ">23</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.zaobao.com.sg/news/world/story20260324-8780276" target="_blank" class="news-link">伊朗巴基斯坦高层连续通话 强调通过外交缓和地区局势</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">20</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">今日头条</span><span class="rank-num ">24</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.toutiao.com/trending/7630242126521008169/" target="_blank" class="news-link">伊朗称已为战事重新爆发做好准备</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">21</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 最新</span><span class="rank-num ">25</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/articles/3770492" target="_blank" class="news-link">霍尔木兹海峡动向：三艘船今日试图穿越、其中一艘是伊朗货船</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">22</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">参考消息</span><span class="rank-num ">26</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://ckxxapp.ckxx.net/pages/2026/04/21/4f77157af3ac415fa21fee3b429c0749.html" target="_blank" class="news-link">伊朗议长：已做好“打出新牌”准备</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">23</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">百度热搜</span><span class="rank-num ">27</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.baidu.com/s?wd=%E4%BC%8A%E6%9C%97%E6%98%8E%E6%97%A5%E8%B5%B7%E6%81%A2%E5%A4%8D%E5%9B%BD%E5%86%85%E8%88%AA%E7%8F%AD" target="_blank" class="news-link">伊朗明日起恢复国内航班</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">24</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">参考消息</span><span class="rank-num ">27</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://ckxxapp.ckxx.net/pages/2026/04/21/ced17f68b07e4cfe9efae83788f4b046.html" target="_blank" class="news-link">600多名俄专家从伊朗布什尔核电站撤离</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">25</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num ">29</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091828" target="_blank" class="news-link">舆论认为伊朗已为战事重新爆发做好准备</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">26</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num ">30</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091827" target="_blank" class="news-link">以色列总理再称对伊朗任务尚未结束</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name">美股</div>
+                            <div class="word-count hot">10 条</div>
+                        </div>
+                        <div class="word-index">3/7</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 最新</span><span class="rank-num top">2</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/member/articles/3770500" target="_blank" class="news-link">美股新高后，市场关注什么？</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">2</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 最热</span><span class="rank-num top">3</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/articles/3770463" target="_blank" class="news-link">中东局势缓和叠加沃什听证会预期，美股期指回暖，半导体股普涨，油价续跌</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">3</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num top">3</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091861" target="_blank" class="news-link">周二美股盘前你需要了解的全球要闻</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">4</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 最热</span><span class="rank-num ">6</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/articles/3770361" target="_blank" class="news-link">美伊谈判悬而未决，美股指收跌，半导体指数十四连涨，原油大涨</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">5</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 最热</span><span class="rank-num ">9</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/articles/3770421" target="_blank" class="news-link">对冲基金CIO预言：美股这轮行情见顶后，利率将归零，美联储资产负债表或将再度大幅膨胀！</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">6</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">财联社 深度</span><span class="rank-num ">12</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.cls.cn/detail/2350973" target="_blank" class="news-link">美股新高之际 杰富瑞警告：五大信号表明短期已见顶</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">7</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">财联社热门</span><span class="rank-num ">13</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.cls.cn/detail/2351163" target="_blank" class="news-link">特朗普称美伊将达成重大协议 美股三大期指小幅上涨 | 今夜看点</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">8</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">格隆汇</span><span class="rank-num ">14</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.gelonghui.com/news/5214213" target="_blank" class="news-link">美股盘前要点 | 美伊第二轮谈判去向未明！“恐怖数据”、特朗普访谈及沃什听证会重磅来袭</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">9</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 最新</span><span class="rank-num ">15</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/articles/3770463" target="_blank" class="news-link">中东局势缓和叠加沃什听证会预期，美股期指回暖，半导体股普涨，油价续跌</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">10</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">财联社 深度</span><span class="rank-num ">17</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.cls.cn/detail/2350782" target="_blank" class="news-link">美股迷幻药物板块隔夜暴走 特朗普放宽监管行业迎来命运反转</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name">谷歌 google gemini</div>
+                            <div class="word-count ">3 条</div>
+                        </div>
+                        <div class="word-index">4/7</div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">掘金</span><span class="rank-num ">16</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://juejin.cn/post/7630298684077391923" target="_blank" class="news-link">Android 开发快 3 倍！Google 说的</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">2</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">V2EX</span><span class="rank-num ">22</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.v2ex.com/t/1207484" target="_blank" class="news-link">Gemini in Chrome 支持日本了，为什么我的不生效？</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">3</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">V2EX</span><span class="rank-num ">23</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.v2ex.com/t/1207479" target="_blank" class="news-link">分享几个效率小工具，在 Finder 中一键使用 claude code / codex-cli / opencode-cli / gemini-cli 打开项目</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name">DeepSeek 梁文锋</div>
+                            <div class="word-count ">1 条</div>
+                        </div>
+                        <div class="word-index">5/7</div>
+                    </div>
+                    <div class="news-item ">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">腾讯新闻 综合早报</span><span class="rank-num ">12</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://view.inews.qq.com/a/20260420A06SC900" target="_blank" class="news-link">Anthropic的一万亿，与DeepSeek的100亿</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name">chatgpt openai</div>
+                            <div class="word-count ">1 条</div>
+                        </div>
+                        <div class="word-index">6/7</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">36氪 快讯</span><span class="rank-num high">4</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://www.36kr.com/newsflashes/3776503418063112" target="_blank" class="news-link">OpenAI正与顾问合作，拟出售Codex</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name">美元</div>
+                            <div class="word-count ">1 条</div>
+                        </div>
+                        <div class="word-index">7/7</div>
+                    </div>
+                    <div class="news-item new">
+                        <div class="news-number">1</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">华尔街见闻 快讯</span><span class="rank-num ">21</span><span class="time-info">21时04分</span>
+                            </div>
+                            <div class="news-title"><a href="https://wallstreetcn.com/livenews/3091836" target="_blank" class="news-link">美国3月零售销售数据公布后，美元指数短线小幅拉升</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="new-section">
+                    <div class="new-section-title">本次新增热点 (共 60 条)</div>
+                    <div class="new-source-group">
+                        <div class="new-source-title">今日头条 · 1条</div>
+                        <div class="new-item">
+                            <div class="new-item-number">1</div>
+                            <div class="new-item-rank ">24</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://www.toutiao.com/trending/7630242126521008169/" target="_blank" class="news-link">伊朗称已为战事重新爆发做好准备</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-source-group">
+                        <div class="new-source-title">华尔街见闻 最热 · 2条</div>
+                        <div class="new-item">
+                            <div class="new-item-number">1</div>
+                            <div class="new-item-rank ">9</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/articles/3770421" target="_blank" class="news-link">对冲基金CIO预言：美股这轮行情见顶后，利率将归零，美联储资产负债表或将再度大幅膨胀！</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">2</div>
+                            <div class="new-item-rank ">10</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/articles/3770498" target="_blank" class="news-link">5月1日——特朗普“任性打仗”的关键时限</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-source-group">
+                        <div class="new-source-title">财联社热门 · 1条</div>
+                        <div class="new-item">
+                            <div class="new-item-number">1</div>
+                            <div class="new-item-rank ">13</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://www.cls.cn/detail/2351163" target="_blank" class="news-link">特朗普称美伊将达成重大协议 美股三大期指小幅上涨 | 今夜看点</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-source-group">
+                        <div class="new-source-title">卫星通讯社 · 5条</div>
+                        <div class="new-item">
+                            <div class="new-item-number">1</div>
+                            <div class="new-item-rank ">6</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://sputniknews.cn/20260421/1070889253.html" target="_blank" class="news-link">伊朗拟定一份新的目标清单以防与美国的冲突重启</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">2</div>
+                            <div class="new-item-rank ">12</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://sputniknews.cn/20260421/1070888449.html" target="_blank" class="news-link">爱沙尼亚防长：因与伊朗冲突，美国已暂停向爱沙尼亚交付价值数千万欧元的炮弹</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">3</div>
+                            <div class="new-item-rank ">13</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://sputniknews.cn/20260421/1070888206.html" target="_blank" class="news-link">伊朗军方宣布在美国海上封锁的背景下协助油轮进入伊朗水域</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">4</div>
+                            <div class="new-item-rank ">19</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://sputniknews.cn/20260421/1070887324.html" target="_blank" class="news-link">伊朗外长：坚持要求美方释放被扣船员</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">5</div>
+                            <div class="new-item-rank ">20</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://sputniknews.cn/20260421/1070887114.html" target="_blank" class="news-link">伊媒：伊朗代表团尚未启程赴巴与美谈判</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-source-group">
+                        <div class="new-source-title">联合早报 · 2条</div>
+                        <div class="new-item">
+                            <div class="new-item-number">1</div>
+                            <div class="new-item-rank top">1</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://www.zaochenbao.com/news/politics/202604/2169923.html" target="_blank" class="news-link">美官员：特朗普频“抢风头”在社媒发文或损害谈判进程</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">2</div>
+                            <div class="new-item-rank top">3</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://www.zaochenbao.com/news/politics/202604/2169921.html" target="_blank" class="news-link">伊朗战争重创德国景气 投资者信心跌至三年多新低</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-source-group">
+                        <div class="new-source-title">华尔街见闻 快讯 · 15条</div>
+                        <div class="new-item">
+                            <div class="new-item-number">1</div>
+                            <div class="new-item-rank top">1</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091864" target="_blank" class="news-link">特朗普批评最高法院允许退还关税</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">2</div>
+                            <div class="new-item-rank top">3</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091861" target="_blank" class="news-link">周二美股盘前你需要了解的全球要闻</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">3</div>
+                            <div class="new-item-rank high">4</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091860" target="_blank" class="news-link">特朗普：我一直赞成提高利率以对抗通货膨胀</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">4</div>
+                            <div class="new-item-rank ">6</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091858" target="_blank" class="news-link">特朗普赞扬蒂姆·库克和黄仁勋。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">5</div>
+                            <div class="new-item-rank ">7</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091857" target="_blank" class="news-link">特朗普谈Anthropic：不想让他们干预军事事务。 在白宫与Anthropic进行了良好的会谈。 Anthropic的人智商很高，我觉得我们能相处融洽。 有可能达成协议。 用像SAM ALTMAN这样的人取代了ANTHROPIC。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">6</div>
+                            <div class="new-item-rank ">8</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091856" target="_blank" class="news-link">特朗普赞扬其他国家从美国获取石油。 特朗普指出股市上涨。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">7</div>
+                            <div class="new-item-rank ">10</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091852" target="_blank" class="news-link">特朗普：“完全”赢得了伊朗战争。 如果我们现在离开伊朗，重建需要20年。 想就伊朗问题达成一项好的协议，不能操之过急。 不想被那些“叛国者”催促行事。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">8</div>
+                            <div class="new-item-rank ">11</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091851" target="_blank" class="news-link">尽管对市场和石油造成影响，特朗普仍为在伊朗采取的行动辩护。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">9</div>
+                            <div class="new-item-rank ">13</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091848" target="_blank" class="news-link">特朗普：我认为美联储大楼翻修完成后可能要花费超过40亿美元。 必须查明美联储大楼翻修成本超支的原因。 （特朗普被问及新任美联储主席是否应该立即降息）如果新任美联储主席不降息，会感到失望。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">10</div>
+                            <div class="new-item-rank ">14</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091846" target="_blank" class="news-link">特朗普为针对鲍威尔的调查辩护，批评美联储的建设成本。 特朗普暗示鲍威尔在美联储建设成本问题上存在不当行为。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">11</div>
+                            <div class="new-item-rank ">16</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091843" target="_blank" class="news-link">特朗普谈再次延长停火：我不想那么做。 伊朗可以通过协议重回正轨。 伊朗似乎“嗜血成性”。 伊朗必须运用理性和常识。 伊朗可以把自身变成一个正当的国家。 伊朗可能已经进行了一些补给。 打击基础设施可在军事上损害伊朗。 预计将对伊朗进行轰炸，我们已准备就绪。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">12</div>
+                            <div class="new-item-rank ">17</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091840" target="_blank" class="news-link">特朗普谈伊朗谈判：我认为我们最终会达成一项很棒的协议。 伊朗别无选择，只能派人参加谈判。 我们在与伊朗的谈判中处于非常有利的地位。 封锁取得了巨大成功。 美国完全控制了霍尔木兹海峡。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">13</div>
+                            <div class="new-item-rank ">21</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091836" target="_blank" class="news-link">美国3月零售销售数据公布后，美元指数短线小幅拉升</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">14</div>
+                            <div class="new-item-rank ">29</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091828" target="_blank" class="news-link">舆论认为伊朗已为战事重新爆发做好准备</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">15</div>
+                            <div class="new-item-rank ">30</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/livenews/3091827" target="_blank" class="news-link">以色列总理再称对伊朗任务尚未结束</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-source-group">
+                        <div class="new-source-title">华尔街见闻 最新 · 5条</div>
+                        <div class="new-item">
+                            <div class="new-item-number">1</div>
+                            <div class="new-item-rank top">2</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/member/articles/3770500" target="_blank" class="news-link">美股新高后，市场关注什么？</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">2</div>
+                            <div class="new-item-rank ">15</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/articles/3770463" target="_blank" class="news-link">中东局势缓和叠加沃什听证会预期，美股期指回暖，半导体股普涨，油价续跌</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">3</div>
+                            <div class="new-item-rank ">20</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/articles/3770497" target="_blank" class="news-link">伊朗战争推高欧洲机票成本：长途航班每名乘客多付超100美元</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">4</div>
+                            <div class="new-item-rank ">21</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/articles/3770498" target="_blank" class="news-link">5月1日——特朗普“任性打仗”的关键时限</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">5</div>
+                            <div class="new-item-rank ">25</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://wallstreetcn.com/articles/3770492" target="_blank" class="news-link">霍尔木兹海峡动向：三艘船今日试图穿越、其中一艘是伊朗货船</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-source-group">
+                        <div class="new-source-title">格隆汇 · 1条</div>
+                        <div class="new-item">
+                            <div class="new-item-number">1</div>
+                            <div class="new-item-rank ">14</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://www.gelonghui.com/news/5214213" target="_blank" class="news-link">美股盘前要点 | 美伊第二轮谈判去向未明！“恐怖数据”、特朗普访谈及沃什听证会重磅来袭</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-source-group">
+                        <div class="new-source-title">金十数据 · 19条</div>
+                        <div class="new-item">
+                            <div class="new-item-number">1</div>
+                            <div class="new-item-rank top">1</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421204820144800" target="_blank" class="news-link">美国总统特朗普：如果我们现在离开，伊朗需要20年才能重建。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">2</div>
+                            <div class="new-item-rank high">4</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421204527480800" target="_blank" class="news-link">美国总统特朗普：如果新任美联储主席不降息，我将感到失望。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">3</div>
+                            <div class="new-item-rank ">8</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421204330821800" target="_blank" class="news-link">美国总统特朗普：必须查明美联储大楼成本超支的原因。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">4</div>
+                            <div class="new-item-rank ">9</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421204319247800" target="_blank" class="news-link">美国总统特朗普：预计美联储大楼完工时可能耗资超过40亿美元。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">5</div>
+                            <div class="new-item-rank ">10</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421204253837800" target="_blank" class="news-link">美国总统特朗普暗示鲍威尔在美联储建设成本问题上存在不当行为。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">6</div>
+                            <div class="new-item-rank ">11</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421204232112800" target="_blank" class="news-link">美国总统特朗普：美联储主席提名人沃什对美联储大楼翻修感到不满。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">7</div>
+                            <div class="new-item-rank ">12</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421204206307800" target="_blank" class="news-link">特朗普表示不想延长与伊朗的停火协议</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">8</div>
+                            <div class="new-item-rank ">13</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421204202798800" target="_blank" class="news-link">美国总统特朗普在采访中被问及美国司法部是否可能终止对美联储主席鲍威尔的调查。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">9</div>
+                            <div class="new-item-rank ">14</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421204050334800" target="_blank" class="news-link">技术刘Pro：突发双重利空压制国际现货金银，特朗普言论能否逆转行情？</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">10</div>
+                            <div class="new-item-rank ">15</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421204017760800" target="_blank" class="news-link">美国总统特朗普：（关于美联储调查）我们必须了解建设情况。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">11</div>
+                            <div class="new-item-rank ">16</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421203925707800" target="_blank" class="news-link">美国总统特朗普：我预计伊朗会遭到轰炸，美军已做好进入伊朗的准备。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">12</div>
+                            <div class="new-item-rank ">18</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421203824320800" target="_blank" class="news-link">美国总统特朗普：我们的姿态是准备轰炸伊朗，我们已做好准备。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">13</div>
+                            <div class="new-item-rank ">21</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421203802366800" target="_blank" class="news-link">美国总统特朗普：我们现在的设备比几周前多得多。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">14</div>
+                            <div class="new-item-rank ">22</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421203756162800" target="_blank" class="news-link">美国总统特朗普：伊朗试图转移其导弹。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">15</div>
+                            <div class="new-item-rank ">23</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421203742847800" target="_blank" class="news-link">美国总统特朗普：对基础设施的打击可能会对伊朗造成军事伤害。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">16</div>
+                            <div class="new-item-rank ">25</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421203729153800" target="_blank" class="news-link">美国总统特朗普：伊朗可能已经补充了一些（武器）库存。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">17</div>
+                            <div class="new-item-rank ">26</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421203711159800" target="_blank" class="news-link">美国总统特朗普：伊朗似乎“嗜血成性”。伊朗必须理性、讲常识。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">18</div>
+                            <div class="new-item-rank ">27</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421203647377800" target="_blank" class="news-link">美国总统特朗普：伊朗可以使自己成为一个合法国家。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">19</div>
+                            <div class="new-item-rank ">28</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://flash.jin10.com/detail/20260421203643869800" target="_blank" class="news-link">美国总统特朗普：伊朗刚获准赴巴基斯坦参加会谈。</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-source-group">
+                        <div class="new-source-title">财联社 电报 · 6条</div>
+                        <div class="new-item">
+                            <div class="new-item-number">1</div>
+                            <div class="new-item-rank top">3</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://api3.cls.cn/share/article/2351176?os=web&amp;sv=8.4.6&amp;app=CailianpressWeb" target="_blank" class="news-link">财联社4月21日电，美国总统特朗普批评最高法院的关税裁决。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">2</div>
+                            <div class="new-item-rank high">4</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://api3.cls.cn/share/article/2351174?os=web&amp;sv=8.4.6&amp;app=CailianpressWeb" target="_blank" class="news-link">特朗普：赞成提高利率以对抗通货膨胀 但美国应该始终拥有全球最低利率</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">3</div>
+                            <div class="new-item-rank ">10</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://api3.cls.cn/share/article/2351165?os=web&amp;sv=8.4.6&amp;app=CailianpressWeb" target="_blank" class="news-link">财联社4月21日电，特朗普称，在白宫与ANTHROPIC进行了良好的会谈，可能会与其达成协议。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">4</div>
+                            <div class="new-item-rank ">12</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://api3.cls.cn/share/article/2351160?os=web&amp;sv=8.4.6&amp;app=CailianpressWeb" target="_blank" class="news-link">财联社4月21日电，美国总统特朗普赞扬其他国家从美国购买石油。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">5</div>
+                            <div class="new-item-rank ">15</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://api3.cls.cn/share/article/2351155?os=web&amp;sv=8.4.6&amp;app=CailianpressWeb" target="_blank" class="news-link">财联社4月21日电，美国总统特朗普表示，如果新任美联储主席不降息，会感到失望。</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">6</div>
+                            <div class="new-item-rank ">20</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://api3.cls.cn/share/article/2351150?os=web&amp;sv=8.4.6&amp;app=CailianpressWeb" target="_blank" class="news-link">特朗普：必须查明美联储大楼翻修成本超支的原因</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-source-group">
+                        <div class="new-source-title">财联社 深度 · 2条</div>
+                        <div class="new-item">
+                            <div class="new-item-number">1</div>
+                            <div class="new-item-rank ">12</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://www.cls.cn/detail/2350973" target="_blank" class="news-link">美股新高之际 杰富瑞警告：五大信号表明短期已见顶</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-item">
+                            <div class="new-item-number">2</div>
+                            <div class="new-item-rank ">17</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://www.cls.cn/detail/2350782" target="_blank" class="news-link">美股迷幻药物板块隔夜暴走 特朗普放宽监管行业迎来命运反转</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-source-group">
+                        <div class="new-source-title">36氪 快讯 · 1条</div>
+                        <div class="new-item">
+                            <div class="new-item-number">1</div>
+                            <div class="new-item-rank high">4</div>
+                            <div class="new-item-content">
+                                <div class="new-item-title"><a href="https://www.36kr.com/newsflashes/3776503418063112" target="_blank" class="news-link">OpenAI正与顾问合作，拟出售Codex</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+    
