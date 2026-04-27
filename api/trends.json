@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-04-28T02:03:01.471449+08:00",
-  "total_titles_processed": 403,
+  "generated_at": "2026-04-28T03:42:28.577966+08:00",
+  "total_titles_processed": 479,
   "failed_sources": [],
   "trends": [
     {
       "keyword_group": "伊朗",
-      "match_count": 31,
+      "match_count": 36,
       "titles": [
         {
           "title": "伊朗提出一项分三阶段解决的谈判方案：先谈终止战争，然后霍尔木兹海峡，最后才是核问题",
@@ -15,8 +15,30 @@
             2
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
+        },
+        {
+          "title": "俄防长会见伊朗副防长",
+          "url": "https://flash.jin10.com/detail/20260428032557405800",
+          "source": "金十数据",
+          "ranks": [
+            2
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "03时42分"
+        },
+        {
+          "title": "伊朗外交部谴责美国扣押与伊朗有关的油轮，称此举是“公然将公海上的海盗行为和武装抢劫合法化”。",
+          "url": "https://wallstreetcn.com/livenews/3095202",
+          "source": "华尔街见闻-快讯",
+          "ranks": [
+            2
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "03时42分"
         },
         {
           "title": "美国务卿鲁比奥：美国不会允许伊朗控制霍尔木兹海峡",
@@ -28,6 +50,19 @@
           "is_new": false,
           "appearance_count": 1,
           "time_info": "00时28分"
+        },
+        {
+          "title": "美国以涉伊朗为由制裁中企 中方表态",
+          "url": "https://www.toutiao.com/trending/7632821618738167818/",
+          "source": "今日头条",
+          "ranks": [
+            21,
+            8,
+            5
+          ],
+          "is_new": false,
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "据沙特媒体哈达斯（alhadath）：法国外长表示，伊朗已越过十年前为其设定的所有红线。",
@@ -53,6 +88,17 @@
           "time_info": "[00时28分 ~ 02时03分]"
         },
         {
+          "title": "伊朗外交部谴责美国扣押与伊朗有关的油轮，称其为“公然合法化海盗行为和武装抢劫”。",
+          "url": "https://flash.jin10.com/detail/20260428031932926800",
+          "source": "金十数据",
+          "ranks": [
+            5
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "03时42分"
+        },
+        {
           "title": "伊朗外长：美方请求谈判 伊方正考虑",
           "url": "https://www.toutiao.com/trending/7633444247001189938/",
           "source": "今日头条",
@@ -60,8 +106,8 @@
             6
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "消息人士：伊朗提出一项分三阶段解决的谈判方案",
@@ -71,8 +117,8 @@
             6
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "伊朗战争丨普京会见伊朗外长，与穆杰塔巴隔空互动",
@@ -82,8 +128,8 @@
             6
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "伊朗外长抵达圣彼得堡将同普京举行会谈，会谈些啥？美伊局势转向会迎来重要契机吗？",
@@ -93,31 +139,20 @@
             6
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
-        },
-        {
-          "title": "美国以涉伊朗为由制裁中企 中方表态",
-          "url": "https://www.toutiao.com/trending/7632821618738167818/",
-          "source": "今日头条",
-          "ranks": [
-            21,
-            8
-          ],
-          "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "伊朗宣布暂停66类钢铁产品出口，此前70%钢铁产能被以色列摧毁",
           "url": "https://wallstreetcn.com/articles/3770985",
           "source": "华尔街见闻",
           "ranks": [
-            9
+            9,
+            8
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "美以袭击伊朗进入第 59 天，当前局势如何？还有哪些信息值得关注？",
@@ -127,19 +162,20 @@
             11
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "普京：已收到伊朗最高领袖传来的信息",
           "url": "https://www.baidu.com/s?wd=%E6%99%AE%E4%BA%AC%EF%BC%9A%E5%B7%B2%E6%94%B6%E5%88%B0%E4%BC%8A%E6%9C%97%E6%9C%80%E9%AB%98%E9%A2%86%E8%A2%96%E4%BC%A0%E6%9D%A5%E7%9A%84%E4%BF%A1%E6%81%AF",
           "source": "百度热搜",
           "ranks": [
-            14
+            14,
+            23
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "伊朗外长：美方请求谈判 伊方正考虑",
@@ -150,8 +186,8 @@
             16
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "德银、摩根大通看好伊朗战争背景下的能源挂钩货币",
@@ -264,6 +300,17 @@
           "time_info": "00时28分"
         },
         {
+          "title": "鉴于政府内部对伊朗战争可能冲击选民家庭预算的担忧日益加剧，英国财政大臣里夫斯正考虑对私营部门的住房实施为期一年的租金冻结。",
+          "url": "https://flash.jin10.com/detail/20260428031401071800",
+          "source": "金十数据",
+          "ranks": [
+            9
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "03时42分"
+        },
+        {
           "title": "伊朗外长阿拉格齐：此外，两国之间的合作也得到了考虑，并且提出了许多非常好的建议。",
           "url": "https://flash.jin10.com/detail/20260427234723216800",
           "source": "金十数据",
@@ -341,6 +388,17 @@
           "time_info": "00时28分"
         },
         {
+          "title": "普京会见伊朗外长阿拉格齐",
+          "url": "https://www.baidu.com/s?wd=%E6%99%AE%E4%BA%AC%E4%BC%9A%E8%A7%81%E4%BC%8A%E6%9C%97%E5%A4%96%E9%95%BF%E9%98%BF%E6%8B%89%E6%A0%BC%E9%BD%90",
+          "source": "百度热搜",
+          "ranks": [
+            25
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "03时42分"
+        },
+        {
           "title": "美国国务卿卢比奥：美国无法容忍伊朗将控制霍尔木兹海峡的做法常态化。",
           "url": "https://wallstreetcn.com/livenews/3095110",
           "source": "华尔街见闻-快讯",
@@ -355,7 +413,7 @@
     },
     {
       "keyword_group": "特朗普",
-      "match_count": 18,
+      "match_count": 24,
       "titles": [
         {
           "title": "美记者当面念枪手宣言，特朗普发怒：你真可耻",
@@ -365,8 +423,8 @@
             1
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "特朗普未来出席活动或须穿防弹衣，枪击案更多细节曝光",
@@ -376,8 +434,8 @@
             3
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "美国白宫：特朗普关于伊朗问题的底线没有改变",
@@ -420,8 +478,8 @@
             7
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "白宫遭枪击,特朗普紧急撤离",
@@ -432,8 +490,8 @@
             30
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "白宫新闻秘书Leavitt：美国总统特朗普今天与团队讨论了伊朗的建议。 很快就会听到特朗普对于伊朗的态度。",
@@ -555,6 +613,72 @@
           "is_new": false,
           "appearance_count": 2,
           "time_info": "[02时02分 ~ 02时03分]"
+        },
+        {
+          "title": "特朗普寻求为移民执法工作拨款 要求共和党人齐心支持",
+          "url": "https://flash.jin10.com/detail/20260428030503481800",
+          "source": "金十数据",
+          "ranks": [
+            10
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "03时42分"
+        },
+        {
+          "title": "美国总统特朗普：我已要求在6月1日之前将最终法案放在我的桌上。",
+          "url": "https://flash.jin10.com/detail/20260428025817004800",
+          "source": "金十数据",
+          "ranks": [
+            12
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "03时42分"
+        },
+        {
+          "title": "美国总统特朗普：我们需要所有共和党人团结一致，支持这一预算蓝图，为我们移民和海关执法局（ICE）和边境巡逻人员获得全面资金。",
+          "url": "https://flash.jin10.com/detail/20260428025757261800",
+          "source": "金十数据",
+          "ranks": [
+            13
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "03时42分"
+        },
+        {
+          "title": "白宫：特朗普及其国安团队开会讨论伊朗新提案",
+          "url": "https://wallstreetcn.com/livenews/3095180",
+          "source": "华尔街见闻-快讯",
+          "ranks": [
+            19
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "03时42分"
+        },
+        {
+          "title": "白宫记者协会枪手被指控试图刺杀美国总统特朗普。",
+          "url": "https://wallstreetcn.com/livenews/3095172",
+          "source": "华尔街见闻-快讯",
+          "ranks": [
+            24
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "03时42分"
+        },
+        {
+          "title": "特朗普呼吁美国广播公司解雇脱口秀主持人吉米·坎摩尔",
+          "url": "https://flash.jin10.com/detail/20260428021753032800",
+          "source": "金十数据",
+          "ranks": [
+            27
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "03时42分"
         }
       ]
     },
@@ -562,17 +686,6 @@
       "keyword_group": "谷歌 google gemini",
       "match_count": 9,
       "titles": [
-        {
-          "title": "谷歌DeepMind将与韩国合作推进“登月”级AI项目",
-          "url": "https://wallstreetcn.com/livenews/3095168",
-          "source": "华尔街见闻-快讯",
-          "ranks": [
-            1
-          ],
-          "is_new": false,
-          "appearance_count": 2,
-          "time_info": "[02时02分 ~ 02时03分]"
-        },
         {
           "title": "欧盟要求谷歌向AI竞争对手开放安卓系统",
           "url": "https://flash.jin10.com/detail/20260428013540130800",
@@ -606,6 +719,18 @@
           "is_new": false,
           "appearance_count": 3,
           "time_info": "[00时28分 ~ 02时03分]"
+        },
+        {
+          "title": "谷歌DeepMind将与韩国合作推进“登月”级AI项目",
+          "url": "https://wallstreetcn.com/livenews/3095168",
+          "source": "华尔街见闻-快讯",
+          "ranks": [
+            1,
+            28
+          ],
+          "is_new": false,
+          "appearance_count": 3,
+          "time_info": "[02时02分 ~ 03时42分]"
         },
         {
           "title": "谷歌公司员工呼吁CEO Pichai阻止美国军方使用其AI技术（产品）。（英国金融时报）",
@@ -669,6 +794,19 @@
       "match_count": 3,
       "titles": [
         {
+          "title": "如何评价小米 4 月 23 日发布的 MiMo-V2.5 系列模型，有可能比 DeepSeekV4 更强吗？",
+          "url": "https://www.zhihu.com/question/2030445160417510538",
+          "source": "知乎",
+          "ranks": [
+            18,
+            17,
+            5
+          ],
+          "is_new": false,
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
+        },
+        {
           "title": "国芯+国模！DeepSeek适配国产芯片 AI算力底座迈向多样化",
           "url": "https://www.cls.cn/detail/2357012",
           "source": "财联社热门",
@@ -676,37 +814,26 @@
             12
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
-        },
-        {
-          "title": "如何评价小米 4 月 23 日发布的 MiMo-V2.5 系列模型，有可能比 DeepSeekV4 更强吗？",
-          "url": "https://www.zhihu.com/question/2030445160417510538",
-          "source": "知乎",
-          "ranks": [
-            18,
-            17
-          ],
-          "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "媒体：梁文锋这一次要掀桌",
           "url": "https://www.toutiao.com/trending/7633338675333434907/",
           "source": "今日头条",
           "ranks": [
-            24
+            24,
+            7
           ],
           "is_new": false,
-          "appearance_count": 1,
-          "time_info": "00时28分"
+          "appearance_count": 2,
+          "time_info": "[00时28分 ~ 03时42分]"
         }
       ]
     },
     {
       "keyword_group": "美股",
-      "match_count": 2,
+      "match_count": 3,
       "titles": [
         {
           "title": "美伊谈判僵局难解，美股开盘小幅下跌，高通涨7%，微软跌约1%，布油日内涨2%",
@@ -716,8 +843,8 @@
             3
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
         },
         {
           "title": "对冲基金两年来最快速度抛售科技股，美股内部已现裂痕",
@@ -727,8 +854,19 @@
             10
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
+        },
+        {
+          "title": "美股三大指数集体低开 高通涨逾6%",
+          "url": "https://www.baidu.com/s?wd=%E7%BE%8E%E8%82%A1%E4%B8%89%E5%A4%A7%E6%8C%87%E6%95%B0%E9%9B%86%E4%BD%93%E4%BD%8E%E5%BC%80+%E9%AB%98%E9%80%9A%E6%B6%A8%E9%80%BE6%25",
+          "source": "百度热搜",
+          "ranks": [
+            26
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "03时42分"
         }
       ]
     },
@@ -741,11 +879,12 @@
           "url": "https://wallstreetcn.com/livenews/3095167",
           "source": "华尔街见闻-快讯",
           "ranks": [
-            2
+            2,
+            29
           ],
           "is_new": false,
-          "appearance_count": 2,
-          "time_info": "[02时02分 ~ 02时03分]"
+          "appearance_count": 3,
+          "time_info": "[02时02分 ~ 03时42分]"
         },
         {
           "title": "最近24小时，MarketVectorTM数字资产100小盘指数跌1.81%，暂报2646.68点。 MarketVectorTM数字资产100中盘指数跌2.67%，报2840.14点。 MarketVector数字资产100指数跌1.88%，报15109.57点。 目前，Solana跌2.99%，狗狗币跌1.90%，XRP跌3.13%。 比特币跌2.08%，暂报76615.68美元；以太坊跌3.81%，暂报2277.61美元。",
@@ -770,11 +909,29 @@
           "source": "财联社热门",
           "ranks": [
             7,
-            8
+            8,
+            9
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[00时28分 ~ 02时03分]"
+          "appearance_count": 4,
+          "time_info": "[00时28分 ~ 03时42分]"
+        }
+      ]
+    },
+    {
+      "keyword_group": "金价",
+      "match_count": 1,
+      "titles": [
+        {
+          "title": "市场分析：伊朗战争的持续不确定性令金价承压",
+          "url": "https://flash.jin10.com/detail/20260428025327363800",
+          "source": "金十数据",
+          "ranks": [
+            15
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "03时42分"
         }
       ]
     },
